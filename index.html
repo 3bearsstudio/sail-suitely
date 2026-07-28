@@ -4,83 +4,90 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sail Suitely — Luxury cruise discovery</title>
-<meta name="description" content="Sail Suitely surfaces the world's finest sailings — ship-within-a-ship suite enclaves and ultra-luxury all-inclusive lines — and lets you filter by what luxury cruisers actually care about. Coming soon to iOS.">
+<meta name="description" content="Sail Suitely surfaces the world's finest sailings — ship-within-a-ship suite enclaves and ultra-luxury all-inclusive lines — and lets you filter by what luxury cruisers actually care about. Coming soon to iPhone.">
 <meta property="og:title" content="Sail Suitely — Luxury cruise discovery">
-<meta property="og:description" content="The world's finest sailings, curated. Suite enclaves, all-inclusive luxury, and price-drop alerts — coming soon to iOS.">
+<meta property="og:description" content="The world's finest sailings, curated. Suite enclaves, all-inclusive luxury, and price-drop alerts — coming soon to iPhone.">
 <meta property="og:type" content="website">
 <style>
   :root{
     --navy:#0F1F3D; --navy-deep:#0A1730; --navy-soft:#16294a;
     --gold:#D1AD66; --gold-deep:#997838; --gold-bright:#E4C784;
-    --cream:#F5F1E8; --muted:rgba(245,241,232,.66); --line:rgba(209,173,102,.22);
+    --cream:#F5F1E8; --muted:rgba(245,241,232,.68); --line:rgba(209,173,102,.22);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  body{
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    background:var(--navy-deep); color:var(--cream); line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-  }
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--navy-deep);color:var(--cream);line-height:1.6;-webkit-font-smoothing:antialiased}
   .serif{font-family:"Iowan Old Style",Georgia,"Times New Roman",serif}
   a{color:var(--gold-bright);text-decoration:none}
   a:hover{color:var(--gold)}
   a:focus-visible,.cta:focus-visible{outline:2px solid var(--gold-bright);outline-offset:3px;border-radius:4px}
-  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  img{max-width:100%}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
   .gold{color:var(--gold)}
-  /* ---- nav ---- */
-  header.nav{position:sticky;top:0;z-index:10;background:rgba(10,23,48,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  /* nav */
+  header.nav{position:sticky;top:0;z-index:20;background:rgba(10,23,48,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
   .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
-  .brand{font-size:20px;letter-spacing:.02em;color:var(--cream)}
-  .brand b{font-weight:600}
+  .brand{font-size:20px;letter-spacing:.02em;color:var(--cream)}.brand b{font-weight:600}
   .nav a.navlink{color:var(--muted);font-size:14px;margin-left:26px;letter-spacing:.03em}
   .nav a.navlink:hover{color:var(--gold)}
-  /* ---- hero ---- */
-  .hero{position:relative;overflow:hidden;text-align:center;padding:96px 0 84px;
-    background:radial-gradient(1200px 520px at 50% -8%,rgba(209,173,102,.16),transparent 60%),var(--navy);
-    border-bottom:1px solid var(--line)}
+  @media(max-width:560px){.nav a.navlink{margin-left:16px;font-size:13px}}
+  /* device frame */
+  .phone{width:100%;max-width:290px;margin:0 auto;border:11px solid #05070d;border-radius:46px;
+    background:#05070d;box-shadow:0 26px 55px rgba(0,0,0,.55),0 0 0 1px rgba(209,173,102,.16);overflow:hidden;line-height:0}
+  .phone img{display:block;width:100%;border-radius:35px}
+  /* hero */
+  .hero{position:relative;overflow:hidden;text-align:center;padding:88px 0 40px;
+    background:radial-gradient(1200px 520px at 50% -8%,rgba(209,173,102,.16),transparent 60%),var(--navy)}
   .kicker{color:var(--gold);letter-spacing:.34em;text-transform:uppercase;font-size:12px;margin-bottom:22px}
-  .hero h1{font-size:clamp(44px,8vw,84px);line-height:1.02;font-weight:600;letter-spacing:.01em}
-  .hero h1 .thin{display:block;font-size:clamp(18px,3.4vw,30px);font-weight:400;color:var(--muted);margin-top:22px;letter-spacing:.04em}
-  .lead{max-width:640px;margin:30px auto 0;color:var(--muted);font-size:18px}
-  .cta{display:inline-block;margin-top:38px;padding:15px 30px;border:1px solid var(--gold);border-radius:999px;
+  .hero h1{font-size:clamp(44px,8vw,82px);line-height:1.02;font-weight:600;letter-spacing:.01em}
+  .hero h1 .thin{display:block;font-size:clamp(18px,3.4vw,29px);font-weight:400;color:var(--muted);margin-top:22px}
+  .lead{max-width:620px;margin:28px auto 0;color:var(--muted);font-size:18px}
+  .cta{display:inline-block;margin-top:34px;padding:15px 30px;border:1px solid var(--gold);border-radius:999px;
     color:var(--gold-bright);letter-spacing:.06em;font-size:14px;text-transform:uppercase;transition:.2s}
   .cta:hover{background:var(--gold);color:var(--navy-deep)}
   .cta .sub{display:block;text-transform:none;letter-spacing:0;font-size:12px;color:var(--muted);margin-top:4px}
-  /* ---- sections ---- */
+  .hero .phone{margin-top:54px;max-width:300px}
+  /* sections */
   section{padding:76px 0;border-bottom:1px solid var(--line)}
   .eyebrow{color:var(--gold);letter-spacing:.28em;text-transform:uppercase;font-size:12px;margin-bottom:16px}
   h2{font-size:clamp(28px,4.4vw,40px);font-weight:600;line-height:1.12;letter-spacing:.01em}
   .two{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
   .two p{color:var(--muted);font-size:17px;margin-top:18px}
   @media(max-width:760px){.two{grid-template-columns:1fr;gap:28px}}
-  /* ---- enclave chips ---- */
+  /* showcase rows (App-Store style) */
+  .showcase{padding-top:40px}
+  .show-head{text-align:center;margin-bottom:8px}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;padding:56px 0}
+  .row:nth-child(even) .rtext{order:2}
+  .row .rtext h3{font-size:clamp(24px,3.6vw,32px);font-weight:600;line-height:1.15}
+  .row .rtext p{color:var(--muted);font-size:17px;margin-top:16px}
+  .row .rtext .tag{color:var(--gold);letter-spacing:.2em;text-transform:uppercase;font-size:12px;margin-bottom:14px;display:block}
+  @media(max-width:760px){
+    .row{grid-template-columns:1fr;gap:26px;padding:40px 0;text-align:center}
+    .row:nth-child(even) .rtext{order:0}
+  }
+  /* enclave chips */
   .chips{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
   .chip{border:1px solid var(--line);border-radius:999px;padding:10px 18px;font-size:14px;color:var(--cream);
     background:linear-gradient(180deg,rgba(255,255,255,.03),transparent)}
   .chip b{color:var(--gold)}
-  /* ---- feature grid ---- */
-  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
-  @media(max-width:760px){.grid3{grid-template-columns:1fr}}
-  .card{border:1px solid var(--line);border-radius:16px;padding:26px;background:linear-gradient(180deg,var(--navy-soft),rgba(22,41,74,.35))}
-  .card .ic{font-size:22px;color:var(--gold);margin-bottom:12px}
-  .card h3{font-size:19px;font-weight:600;margin-bottom:8px}
-  .card p{color:var(--muted);font-size:15px}
-  /* ---- stats ---- */
-  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;text-align:center;margin-top:8px}
+  /* stats */
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;text-align:center}
   @media(max-width:620px){.stats{grid-template-columns:1fr;gap:32px}}
-  .stat .n{font-size:clamp(38px,6vw,56px);font-weight:600;color:var(--gold);letter-spacing:.01em}
+  .stat .n{font-size:clamp(38px,6vw,56px);font-weight:600;color:var(--gold)}
   .stat .l{color:var(--muted);font-size:14px;letter-spacing:.04em;margin-top:6px}
-  /* ---- trust ---- */
+  /* trust */
   .trust{text-align:center;background:radial-gradient(900px 400px at 50% 120%,rgba(209,173,102,.12),transparent 60%)}
-  .trust .row{display:flex;justify-content:center;gap:40px;flex-wrap:wrap;margin-top:26px}
-  .trust .row div{color:var(--cream);font-size:15px}
-  .trust .row b{color:var(--gold);display:block;font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:4px}
-  /* ---- footer ---- */
+  .trust .row2{display:flex;justify-content:center;gap:40px;flex-wrap:wrap;margin-top:26px}
+  .trust .row2 div{color:var(--cream);font-size:15px}
+  .trust .row2 b{color:var(--gold);display:block;font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:4px}
+  /* footer */
   footer{padding:56px 0 72px;text-align:center;color:var(--muted);font-size:14px}
   footer .disc{max-width:720px;margin:0 auto 22px;font-size:13px;color:rgba(245,241,232,.5);line-height:1.7}
   footer .links a{margin:0 12px;color:var(--muted)}
   footer .links a:hover{color:var(--gold)}
-  footer .copy{margin-top:20px;font-size:12px;color:rgba(245,241,232,.4)}
+  footer .copy{margin-top:20px;font-size:12px;color:rgba(245,241,232,.42);line-height:1.7}
 </style>
 </head>
 <body>
@@ -89,8 +96,8 @@
   <div class="wrap">
     <div class="brand serif">Sail <b>Suitely</b></div>
     <nav>
+      <a class="navlink" href="#tour">Tour</a>
       <a class="navlink" href="#enclaves">Enclaves</a>
-      <a class="navlink" href="#features">Features</a>
       <a class="navlink" href="privacy.html">Privacy</a>
     </nav>
   </div>
@@ -100,10 +107,13 @@
   <div class="wrap">
     <div class="kicker">Luxury cruise discovery</div>
     <h1 class="serif">Sail Suitely
-      <span class="thin">The world's finest sailings, curated.</span>
+      <span class="thin">The world's finest sailings, in one place.</span>
     </h1>
     <p class="lead">A discovery app for luxury cruisers — surfacing ship-within-a-ship suite enclaves and ultra-luxury all-inclusive lines, filtered by what actually matters at this level.</p>
-    <a class="cta" href="#features">Coming soon to iOS<span class="sub">iPhone · no account required</span></a>
+    <a class="cta" href="#tour">Coming soon to iPhone<span class="sub">no account required</span></a>
+    <div class="phone">
+      <img src="assets/home.jpg" width="700" height="1521" alt="Sail Suitely home screen: a Featured Sailing spotlight and a grid of luxury suite enclaves — Mega RockStar, The Haven, The Retreat, MSC Yacht Club, Royal Suite Class, Cunard Grills.">
+    </div>
   </div>
 </div>
 
@@ -120,6 +130,51 @@
   </div>
 </section>
 
+<section id="tour" class="showcase">
+  <div class="wrap">
+    <div class="show-head">
+      <div class="eyebrow">A closer look</div>
+      <h2 class="serif">What it does.</h2>
+    </div>
+
+    <div class="row">
+      <div class="phone"><img loading="lazy" src="assets/guide.jpg" width="700" height="1521" alt="The North Star Guide screen: cruise lines grouped into celestial collections — North Star, Celestial, Horizon, Meridian, Aurora, Compass — over a night-sky backdrop."></div>
+      <div class="rtext">
+        <span class="tag">Curated by prestige</span>
+        <h3 class="serif">The North Star Guide.</h3>
+        <p>Every line placed by pedigree — ultra-luxury to premium — as celestial collections instead of an alphabetical list. See the fleet the way an insider does, and dive into the tier that fits how you sail.</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="phone"><img loading="lazy" src="assets/detail.jpg" width="700" height="1521" alt="A sailing detail screen for Viking Orion: a cabin fare from $13,999 per person marked 'not a quote', suite-experience chips, the port-by-port itinerary, and a Book Now button that opens the cruise line's own site."></div>
+      <div class="rtext">
+        <span class="tag">Real fares · book direct</span>
+        <h3 class="serif">Honest prices. No middle-man checkout.</h3>
+        <p>Every sailing shows a real, recently-refreshed "from" fare — clearly an indicative lead-in, never a fake quote — plus the full port-by-port itinerary and the suite perks that come with it. Tap <span class="gold">Book Now</span> and you go straight to the cruise line's own exact-voyage page.</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="phone"><img loading="lazy" src="assets/map.jpg" width="700" height="1521" alt="A full-screen itinerary map showing a 14-night Hong Kong to Japan voyage, with a gold route arc and labelled port pins at Hong Kong, Kagoshima, Nagasaki, Hiroshima, Osaka and Shimizu."></div>
+      <div class="rtext">
+        <span class="tag">See where you'll sail</span>
+        <h3 class="serif">Every voyage on the map.</h3>
+        <p>Each itinerary is plotted port-by-port on a real map, so you can picture the whole route at a glance — from a week in the Caribbean to a grand Pacific crossing.</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="phone"><img loading="lazy" src="assets/collection.jpg" width="700" height="1521" alt="The Retreat collection screen: Celebrity Retreat routes with 'Cabins from' pricing per person, region and night count, and multi-date ladders."></div>
+      <div class="rtext">
+        <span class="tag">Save · compare · track</span>
+        <h3 class="serif">Follow the sailings you love.</h3>
+        <p>Drill into any enclave or line, favorite the sailings that catch your eye, and lay two side by side to decide. With <span class="gold">Sail Suitely Pro</span>, track the fares on your saved cruises and get an alert the moment a suite price drops by the amount you choose.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="enclaves">
   <div class="wrap">
     <div class="eyebrow">The ship within a ship</div>
@@ -132,47 +187,8 @@
       <div class="chip">Royal Caribbean <b>Royal Suite Class</b></div>
       <div class="chip">Virgin <b>Mega RockStar</b></div>
     </div>
-    <p style="color:var(--muted);margin-top:30px;max-width:720px">…alongside the ultra-luxury all-inclusive lines the enclaves aspire to:
+    <p style="color:var(--muted);margin-top:30px;max-width:760px">…alongside the ultra-luxury all-inclusive lines the enclaves aspire to:
       <span class="gold">Regent Seven Seas · Silversea · Seabourn · Explora Journeys · Ritz-Carlton Yacht Collection · Four Seasons Yachts</span> — and two dozen more.</p>
-  </div>
-</section>
-
-<section id="features">
-  <div class="wrap">
-    <div class="eyebrow">What it does</div>
-    <h2 class="serif">Built for the way you actually cruise.</h2>
-    <div class="grid3">
-      <div class="card">
-        <div class="ic">◈</div>
-        <h3>Curated by prestige</h3>
-        <p>Every line placed on a tiers pyramid — ultra-luxury to premium — so you see the fleet the way an insider does, not an alphabetical list.</p>
-      </div>
-      <div class="card">
-        <div class="ic">⌁</div>
-        <h3>Filters that matter</h3>
-        <p>Suite experience, butler service, all-inclusive, adults-only, region, length, price. The things you'd ask a travel advisor first.</p>
-      </div>
-      <div class="card">
-        <div class="ic">↧</div>
-        <h3>Price-drop alerts</h3>
-        <p>Track the fares on your saved sailings and get notified when a suite price drops by the amount you choose. <span class="gold">(Sail Suitely Pro.)</span></p>
-      </div>
-      <div class="card">
-        <div class="ic">♥</div>
-        <h3>Save &amp; compare</h3>
-        <p>Favorite sailings, then lay two side by side — suite fare, nights, itinerary, butler, all-inclusive — to decide with clarity.</p>
-      </div>
-      <div class="card">
-        <div class="ic">⚓</div>
-        <h3>Book on the line's own site</h3>
-        <p>No middle-man checkout. Tap through to the cruise line's own exact-voyage page and book directly with them.</p>
-      </div>
-      <div class="card">
-        <div class="ic">◷</div>
-        <h3>Fresh fares, nightly</h3>
-        <p>Prices refresh automatically so the "from" you see reflects the market — not a number from six months ago.</p>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -190,7 +206,7 @@
   <div class="wrap">
     <div class="eyebrow">Private by design</div>
     <h2 class="serif">No account. On your device. Yours.</h2>
-    <div class="row">
+    <div class="row2">
       <div><b>No sign-up</b>Browse and save without an account</div>
       <div><b>On-device</b>Your saved sailings stay on your iPhone</div>
       <div><b>Anonymous</b>Never your name, email, or location</div>
