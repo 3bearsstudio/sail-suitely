@@ -46,6 +46,28 @@
   .cta{display:inline-block;margin-top:34px;padding:15px 30px;border:1px solid var(--gold);border-radius:999px;
     color:var(--gold-bright);letter-spacing:.06em;font-size:14px;text-transform:uppercase;transition:.2s}
   .cta:hover{background:var(--gold);color:var(--navy-deep)}
+  /* ── waitlist ── posts to api.3bears.studio, our own Worker. Tight radii and
+     gold-as-accent-only, per the Sail Suitely design system. */
+  .waitlist{padding:72px 0;text-align:center;border-top:1px solid var(--line)}
+  .waitlist h2{margin:6px 0 14px}
+  .wl-lead{color:var(--muted);max-width:52ch;margin:0 auto 26px}
+  .wl-form{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:500px;margin:0 auto}
+  .wl-form input[type=email]{flex:1 1 250px;min-width:0;font:inherit;font-size:16px;
+    padding:14px 16px;border-radius:4px;border:1px solid var(--line);
+    background:var(--navy-soft);color:var(--cream)}
+  .wl-form input[type=email]::placeholder{color:rgba(245,241,232,.42)}
+  .wl-form input[type=email]:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px}
+  .wl-form button{font:inherit;font-weight:600;cursor:pointer;padding:14px 28px;border-radius:4px;
+    border:1px solid var(--gold);background:transparent;color:var(--gold);
+    text-transform:uppercase;letter-spacing:.08em;font-size:13px}
+  .wl-form button:hover{background:var(--gold);color:var(--navy-deep)}
+  .wl-form button:disabled{opacity:.5;cursor:default}
+  /* Honeypot: off-screen, NOT display:none — some bots skip hidden fields. */
+  .wl-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;opacity:0}
+  .wl-msg{margin:18px 0 0;font-weight:600;min-height:1.4em}
+  .wl-msg.ok{color:var(--gold-bright)}
+  .wl-msg.bad{color:#E3897A}
+  .wl-note{color:var(--muted);font-size:13px;margin:16px 0 0}
   .cta .sub{display:block;text-transform:none;letter-spacing:0;font-size:12px;color:var(--muted);margin-top:4px}
   .hero .phone{margin-top:54px;max-width:300px}
   /* sections */
@@ -227,8 +249,33 @@
     <div class="row2">
       <div><b>No sign-up</b>Browse and save without an account</div>
       <div><b>On-device</b>Your saved sailings stay on your iPhone</div>
-      <div><b>Anonymous</b>Never your name, email, or location</div>
+      <div><b>Anonymous</b>The app never asks for your name, email, or location</div>
     </div>
+  </div>
+</section>
+
+<section class="waitlist" id="waitlist" aria-labelledby="waitlist-h">
+  <div class="wrap">
+    <div class="eyebrow">Not yet on the App Store</div>
+    <h2 class="serif" id="waitlist-h">Sail with us when it opens</h2>
+    <p class="wl-lead">Leave your email and we&rsquo;ll write once, when Sail Suitely is ready. That
+    is the only thing it will ever be used for &mdash; and the app itself still needs no account.</p>
+
+    <form class="wl-form" id="wait-form" novalidate>
+      <label class="wl-hp" aria-hidden="true">Leave this field empty
+        <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+      <input type="email" id="wait-email" name="email" required
+             autocomplete="email" inputmode="email" spellcheck="false"
+             placeholder="you@example.com" aria-label="Email address">
+      <button type="submit" id="wait-submit">Join the waitlist</button>
+    </form>
+
+    <p class="wl-msg" id="wait-msg" role="status" aria-live="polite"></p>
+    <p class="wl-note">One email, never shared, delete it any time &mdash;
+      <a href="privacy.html#waitlist">Privacy Policy</a>.</p>
+    <noscript><p class="wl-note">The form needs JavaScript. Email
+      <a href="mailto:hello@3bears.studio?subject=Sail%20Suitely%20waitlist">hello@3bears.studio</a>
+      instead.</p></noscript>
   </div>
 </section>
 
@@ -243,6 +290,53 @@
     <p class="copy">Sail Suitely is a product of <strong style="color:var(--muted);font-weight:600">3 Bears Studio LLC</strong> · Apopka, Florida, USA · © 2026.<br>Ships, lines, and enclave names are the trademarks of their respective owners.</p>
   </div>
 </footer>
+
+<script>
+/* ── waitlist ──
+   Posts to our own Cloudflare Worker at api.3bears.studio — a host we control,
+   so the "no third-party requests" rule still holds. Contract and reasoning:
+   the 3bears-api repo, snippets/README.md.
+
+   `website` is a HONEYPOT. The Worker answers 200 and stores nothing when it is
+   filled, so a bot cannot tell it failed. Do not drop it from the payload.
+
+   The form has no `action` on purpose: a plain POST would navigate the visitor
+   to a page of raw JSON. With JS off, the <noscript> block offers an address. */
+(function () {
+  var form = document.getElementById('wait-form');
+  if (!form) return;
+  var email = document.getElementById('wait-email');
+  var button = document.getElementById('wait-submit');
+  var msg = document.getElementById('wait-msg');
+  var hp = form.querySelector('input[name="website"]');
+
+  function say(t, k) { msg.textContent = t; msg.className = 'wl-msg' + (k ? ' ' + k : ''); }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var v = (email.value || '').trim();
+    if (!v || v.indexOf('@') < 1 || v.indexOf('.') < 0) {
+      say('That email doesn’t look right — mind checking it?', 'bad'); email.focus(); return;
+    }
+    button.disabled = true;
+    say('Adding you…');
+    fetch('https://api.3bears.studio/waitlist', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: v, app: 'sail-suitely', website: hp ? hp.value : '' })
+    }).then(function (r) {
+      if (r.ok) { form.hidden = true; say('You’re on the list. We’ll write when it opens.', 'ok'); return; }
+      button.disabled = false;
+      if (r.status === 429) say('That’s a few tries in a row — give it an hour.', 'bad');
+      else if (r.status === 400) { say('That email doesn’t look right — mind checking it?', 'bad'); email.focus(); }
+      else say('Something went wrong on our end. Email hello@3bears.studio and we’ll add you.', 'bad');
+    }).catch(function () {
+      button.disabled = false;
+      say('Couldn’t reach us — check your connection, or email hello@3bears.studio.', 'bad');
+    });
+  });
+})();
+</script>
 
 </body>
 </html>
