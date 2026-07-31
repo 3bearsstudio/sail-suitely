@@ -46,6 +46,19 @@
   .cta{display:inline-block;margin-top:34px;padding:15px 30px;border:1px solid var(--gold);border-radius:999px;
     color:var(--gold-bright);letter-spacing:.06em;font-size:14px;text-transform:uppercase;transition:.2s}
   .cta:hover{background:var(--gold);color:var(--navy-deep)}
+  /* Two hero CTAs. Wraps to a stack below ~520px rather than squeezing. */
+  .hero-cta{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;align-items:stretch}
+  .hero-cta .cta{margin-top:34px}
+  /* The waitlist is the conversion goal, so it gets the filled treatment —
+     still gold-on-navy, not a gradient. Sail Suitely's system: gold is an
+     accent, never a wash. */
+  .cta-solid{background:var(--gold);color:var(--navy-deep);border-color:var(--gold)}
+  .cta-solid .sub{color:rgba(10,23,48,.7)}
+  .cta-solid:hover{background:var(--gold-bright);border-color:var(--gold-bright)}
+  @media(max-width:520px){
+    .hero-cta{flex-direction:column;gap:0}
+    .hero-cta .cta:last-child{margin-top:14px}
+  }
   /* ── waitlist ── posts to api.3bears.studio, our own Worker. Tight radii and
      gold-as-accent-only, per the Sail Suitely design system. */
   .waitlist{padding:72px 0;text-align:center;border-top:1px solid var(--line)}
@@ -132,7 +145,10 @@
       <span class="thin">The world's finest sailings, in one place.</span>
     </h1>
     <p class="lead">A discovery app for luxury cruisers — surfacing ship-within-a-ship suite enclaves and ultra-luxury all-inclusive lines, filtered by what actually matters at this level.</p>
-    <a class="cta" href="#tour">Coming soon to iPhone<span class="sub">no account required</span></a>
+    <div class="hero-cta">
+      <a class="cta cta-solid" href="#waitlist">Join the waitlist<span class="sub">be first aboard</span></a>
+      <a class="cta" href="#tour">Coming soon to iPhone<span class="sub">no account required</span></a>
+    </div>
     <div class="phone">
       <img src="assets/home.jpg" width="760" height="1651" alt="Sail Suitely home screen: a Featured Sailing spotlight and a grid of luxury suite enclaves — Mega RockStar, The Haven, The Retreat, MSC Yacht Club, Royal Suite Class, Cunard Grills.">
     </div>
